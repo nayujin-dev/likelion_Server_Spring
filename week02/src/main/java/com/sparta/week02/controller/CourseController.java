@@ -38,4 +38,10 @@ public class CourseController {
     public List<Course> getCourses() {
         return courseRepository.findAll();
     }
+
+    @DeleteMapping("/api/courses/{id}")
+    public Long deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return id;
+    }
 }
