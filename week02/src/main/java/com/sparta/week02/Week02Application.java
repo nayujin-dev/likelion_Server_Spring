@@ -3,6 +3,7 @@ package com.sparta.week02;
 import com.sparta.week02.Service.CourseService;
 import com.sparta.week02.domain.Course;
 import com.sparta.week02.domain.CourseRepository;
+import com.sparta.week02.models.CourseRequestDto;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,8 +35,8 @@ public class Week02Application {
 				System.out.println(course.getTitle());
 				System.out.println(course.getTutor());
 			}
-			Course new_course = new Course("엔시티 콘서트 3일전에 코로나걸린", "난나유진");
-			courseService.update(1L, new_course);
+			CourseRequestDto requestDto = new CourseRequestDto("웹개발의 봄, Spring", "엊그제 봄이었는데 벌써 가을 ㅜ");
+			courseService.update(1L, requestDto);
 			courseList = repository.findAll();
 			for (int i=0; i<courseList.size(); i++) {
 				Course course = courseList.get(i);
