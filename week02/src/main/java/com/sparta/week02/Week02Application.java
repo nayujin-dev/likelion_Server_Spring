@@ -49,8 +49,8 @@ public class Week02Application {
 					() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
 			);
 
-			//데이터 삭제
-			repository.deleteAll();
+//			//데이터 삭제
+//			repository.deleteAll();
 		};
 	}
 }
