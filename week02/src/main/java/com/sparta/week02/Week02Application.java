@@ -47,6 +47,9 @@ public class Week02Application {
 			Course course = repository.findById(1L).orElseThrow(
 					() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
 			);
+
+			//데이터 삭제
+			repository.deleteAll();
 		};
 	}
 }
