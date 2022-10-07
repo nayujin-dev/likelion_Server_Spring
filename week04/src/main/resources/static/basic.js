@@ -93,6 +93,7 @@ function addHTML(itemDto) {
         <div class="search-itemDto-right">
             <img src="images/icon-save.png" alt="" onclick='addProduct(${JSON.stringify(itemDto)})'>
         </div>
+        
     </div>`
 }
 
@@ -144,7 +145,7 @@ function showProduct() {
 
 function addProductItem(product) {
     // link, image, title, lprice, myprice 변수 활용하기
-    return `<div class="product-card" onclick="window.location.href='${product.link}'">
+    return `<div class="product-card">
                 <div class="card-header">
                     <img src="${product.image}"
                          alt="">
@@ -159,6 +160,9 @@ function addProductItem(product) {
                     <div class="isgood ${product.lprice > product.myprice ? 'none' : ''}">
                         최저가
                     </div>
+                    <div onclick="deleteItem(${product.id})">
+                    삭제버튼
+</div>
                 </div>
             </div>`;
 }
@@ -176,4 +180,39 @@ function setMyprice() {
      * 5, 성공적으로 등록되었음을 알리는 alert를 띄운다.
      * 6. 창을 새로고침한다. window.location.reload();
      */
+        // 1. id가 myprice 인 input 태그에서 값을 가져온다.
+    let myprice = $('#myprice').val();
+    // 2. 만약 값을 입력하지 않았으면 alert를 띄우고 중단한다.
+    if (myprice == '') {
+        alert('올바른 가격을 입력해주세요');
+        return;
+    }
+    // 3. PUT /api/product/${targetId} 에 data를 전달한다.
+    $.ajax({
+        type: "PUT",
+        url: `/api/products/${targetId}`,
+        contentType: "application/json",
+        data: JSON.stringify({myprice: myprice}),
+        success: function (response) {
+            // 4. 모달을 종료한다. $('#container').removeClass('active');
+            $('#container').removeClass('active');
+            // 5. 성공적으로 등록되었음을 알리는 alert를 띄운다.
+            alert('성공적으로 등록되었습니다.');
+            // 6. 창을 새로고침한다. window.location.reload();
+            window.location.reload();
+        }
+    })
+}
+
+function deleteItem(targetId){
+    $.ajax({
+            type: 'DELETE',
+            url: `/api/products/${targetId}`,
+            success: function (response) {
+                window.location.reload();
+            }
+        }
+    )
+
+
 }
